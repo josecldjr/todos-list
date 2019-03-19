@@ -1,3 +1,34 @@
-<p>
-  totos-list works!
-</p>
+
+<div class="todos-container">
+  
+  
+
+  <mat-table [dataSource]="todosList" >
+ 
+    <ng-container matColumnDef="createdAt">
+      <mat-header-cell *matHeaderCellDef> Criado em: </mat-header-cell>
+      <mat-cell *matCellDef="let todo"> {{todo.createdAt || '--'}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> Descrição: </mat-header-cell>
+      <mat-cell *matCellDef="let todo"> {{todo.description}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="done">
+      <mat-header-cell *matHeaderCellDef> Feito </mat-header-cell>
+      <mat-cell *matCellDef="let todo"> {{todo.done}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef> Feito </mat-header-cell>
+        <mat-cell *matCellDef="let todo"> 
+            <mat-slide-toggle [checked]="todo.done" ></mat-slide-toggle>
+        </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+</div>

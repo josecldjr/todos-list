@@ -5,8 +5,8 @@ import { TotosListComponent } from './page/totos-list/totos-list.component';
 
 
 const routes: Routes = [
-  {path: '/', component: TotosListComponent},
-  {path: '/dashboard', component: TotosListComponent},
+  {path: '', component: TotosListComponent},
+  {path: 'dashboard', component: TotosListComponent},
 ];
 
 @NgModule({
