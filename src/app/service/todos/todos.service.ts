@@ -19,9 +19,15 @@ export class TodosService {
   constructor(
     private http: HttpClient,
     ) { }
-  // WIP
-  create() {
-    
+  
+  /** 
+   * Cria uma tarefa na lista
+   * @param todo tarefa
+   */
+  create(todo: Todo): Observable<Todo> {
+    const endpoint = endpoints.todos.default
+
+    return this.http.post(endpoint, todo) as Observable<Todo>
   }
   
   /**
@@ -34,8 +40,10 @@ export class TodosService {
   }
 
   // WIP
-  update() {
+  update(todo: Todo) {
+    const endpoint = endpoints.todos.get
 
+    return this.http.get(endpoint) as Observable<Todo[]>
   }
 
   // WIP

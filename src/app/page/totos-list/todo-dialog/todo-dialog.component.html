@@ -1,0 +1,24 @@
+<div> 
+  <h3> Criar uma tarefa</h3>
+
+  <div>
+    <!-- Input descrição -->
+    <mat-form-field class="example-full-width" container>
+      <input matInput placeholder="Descrição" [(ngModel)]="todo.description" [value]="todo.description"  >
+    </mat-form-field>
+    
+    <!-- Checkbox -->
+    <section class="example-section">
+        <mat-checkbox class="example-margin" [(ngModel)]="todo.done">Checked</mat-checkbox>
+    </section>
+    
+    <!-- Botões de ação -->
+    <button class="btn-todo-dialog" mat-raised-button (click)="save()" >
+      Criar
+    </button>
+    <button class="btn-todo-dialog" mat-button (click)="close()" >
+        Cancelar
+    </button>
+  </div>
+
+</div>

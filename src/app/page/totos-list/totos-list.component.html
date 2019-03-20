@@ -1,34 +1,48 @@
 
 <div class="todos-container">
   
+  <button mat-raised-button (click)="openCreateTodoDialog()">
+    Criar Nova Tarefa
+  </button>
   
 
-  <mat-table [dataSource]="todosList" >
- 
-    <ng-container matColumnDef="createdAt">
-      <mat-header-cell *matHeaderCellDef> Criado em: </mat-header-cell>
-      <mat-cell *matCellDef="let todo"> {{todo.createdAt || '--'}} </mat-cell>
-    </ng-container>
-  
-    <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef> Descrição: </mat-header-cell>
-      <mat-cell *matCellDef="let todo"> {{todo.description}} </mat-cell>
-    </ng-container>
-  
-    <ng-container matColumnDef="done">
-      <mat-header-cell *matHeaderCellDef> Feito </mat-header-cell>
-      <mat-cell *matCellDef="let todo"> {{todo.done}} </mat-cell>
-    </ng-container>
+  <table>
+    <thead>
+        <th>
+          Criado em:
+        </th>
+        <th>
+          Descroção
+        </th>
+        <th>
+          Feito
+        </th>
+        <th>
+            Ações
+        </th>
+    </thead>
+    <tbody *ngFor="let todo of todosList">
+      <tr>
+        <td>
+          {{ todo.createdAt }}
+        </td>
+        <td>
+          {{ todo.description }}
+        </td>
+        <td>
+          {{ todo.done }}
+        </td>
+        <td>
+            <button mat-stroked-button class="action-button">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-stroked-button class="action-button">
+              <mat-icon>delete_outlined</mat-icon>
+            </button>
+        </td>
+      </tr>
+    </tbody>
 
-    <ng-container matColumnDef="action">
-        <mat-header-cell *matHeaderCellDef> Feito </mat-header-cell>
-        <mat-cell *matCellDef="let todo"> 
-            <mat-slide-toggle [checked]="todo.done" ></mat-slide-toggle>
-        </mat-cell>
-    </ng-container>
-  
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
+  </table>
 
 </div>
