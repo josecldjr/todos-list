@@ -44,7 +44,6 @@ export class TodosService {
    */
   update(todo: Todo) {
     const endpoint = endpoints.todos.get.replace(':id', todo._id)
-console.log(endpoint);
 
     return this.http.put(endpoint, todo) as Observable<Todo>
   }

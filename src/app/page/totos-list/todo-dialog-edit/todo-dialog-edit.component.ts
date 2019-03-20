@@ -29,11 +29,8 @@ export class TodoDialogEditComponent implements OnInit {
    * Ação do botão de salvar
    */
   edit()  { 
-
     this.todo.description = this.todoDescription
-
-    console.log(this.todo);
-    
+   
     this.dialogRef.close(this.todo)
   }
 
