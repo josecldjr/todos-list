@@ -4,6 +4,7 @@ import { Todo } from 'src/app/common/models/Todo.model';
 import { MatDialog } from '@angular/material';
 import { TodoDialogComponent } from './todo-dialog/todo-dialog.component';
 import * as _ from 'lodash';
+import { TodoDialogEditComponent } from './todo-dialog-edit/todo-dialog-edit.component';
 
 @Component({
   selector: 'app-totos-list',
@@ -44,7 +45,7 @@ export class TotosListComponent implements OnInit {
    */
   openCreateTodoDialog() {
     this.dialog.open(TodoDialogComponent, {
-      minWidth: '60%'
+      minWidth: '60%',
     })
     // evento ao fechar dialogo
     .afterClosed().subscribe((dialogData) => {
@@ -56,12 +57,35 @@ export class TotosListComponent implements OnInit {
   }
 
   /**
+   * Abre um diálogo para a edição da tarefa (apenas a descrição)
+   * @param todo tarefa que será editada
+   */
+  openEditTodoDialog(todo: Todo) {
+    this.dialog.open(TodoDialogEditComponent, {
+      data: {selectedTask: todo},
+      minWidth: '60%'
+    }).afterClosed().subscribe((dialogData: Todo) => {
+        this.updateTodoTask(dialogData)
+    })
+  }
+
+  /**
    * Cria uma tarefa
    * @param todo tarefa
    */
   createTodoTask(todo: Todo) {
     this.todosService.create(todo).subscribe((todoResult: Todo) => {
         this.addTodoToLocalList(todoResult)
+    })
+  }
+
+  /**
+   * Atualiza uma tarefa pelo id
+   * @param todo tarefa
+   */
+  updateTodoTask(todo: Todo) {
+    this.todosService.update(todo).subscribe((todo: Todo) => {
+      this.updateTodoFromList(todo)
     })
   }
 
@@ -83,7 +107,7 @@ export class TotosListComponent implements OnInit {
   }
 
   /**
-   * Remove uma tafera da lista local buscando pelo id
+   * Remove uma tafera da view buscando pelo id
    * @param taskId id da teafa
    */
   removeTodoFromLocalList(taskId: string) {
@@ -92,9 +116,23 @@ export class TotosListComponent implements OnInit {
     });
 
   }
+  
+  /**
+   * Atualiza uma tarefa da view 
+   * @param todo tarefa
+   */
+  updateTodoFromList(todo: Todo) {
+    this.todosList.forEach((e: Todo, i) => {
+        if (e._id === todo._id) {
+          this.todosList[i] = todo
+        }
+
+    })
+
+  }
 
   /**
-   * Adiciona uma tarefa à lista local
+   * Adiciona uma tarefa à view 
    * @param todo tarefa
    */
   addTodoToLocalList(todo: Todo) {

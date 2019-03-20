@@ -12,11 +12,13 @@ import { LayoutModule } from '@angular/cdk/layout';
 import {MatTableModule, MatRowDef, MatRow} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { TotosListComponent } from './page/totos-list/totos-list.component';
 import { TodosService } from './service/todos/todos.service';
 import { TodoDialogComponent } from './page/totos-list/todo-dialog/todo-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { TodoDialogEditComponent } from './page/totos-list/todo-dialog-edit/todo-dialog-edit.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { FormsModule } from '@angular/forms';
     MainNavComponent,
     TotosListComponent,
     TodoDialogComponent,
+    TodoDialogEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,10 +45,12 @@ import { FormsModule } from '@angular/forms';
     MatDialogModule,
     MatInputModule,
     FormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [
-    TodoDialogComponent
+    TodoDialogComponent,
+    TodoDialogEditComponent,
   ],
   providers: [TodosService],
   bootstrap: [AppComponent]

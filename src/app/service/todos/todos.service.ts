@@ -39,11 +39,14 @@ export class TodosService {
     return this.http.get(endpoint) as Observable<Todo[]>
   }
 
-  // WIP
+  /**
+   * Atualiza uma tarefa 
+   */
   update(todo: Todo) {
-    // const endpoint = endpoints.todos.get
+    const endpoint = endpoints.todos.get.replace(':id', todo._id)
+console.log(endpoint);
 
-    // return this.http.get(endpoint) as Observable<Todo[]>
+    return this.http.put(endpoint, todo) as Observable<Todo>
   }
 
   /**
@@ -55,6 +58,5 @@ export class TodosService {
 
     await this.http.delete(endpoint).toPromise()
   }
-
 
 }

@@ -1,8 +1,9 @@
 
 <div class="todos-container">
   
-  <button mat-raised-button (click)="openCreateTodoDialog()">
+  <button mat-raised-button (click)="openCreateTodoDialog()"><mat-spinner [diameter]="30"></mat-spinner>
     Criar Nova Tarefa
+  
   </button>
   
 
@@ -36,7 +37,7 @@
             <button mat-stroked-button class="action-button" (click)="deleteTodoTask(todo._id)">
                 <mat-icon>delete_outlined</mat-icon>
             </button> 
-            <button mat-stroked-button class="action-button" >
+            <button mat-stroked-button class="action-button" (click)="openEditTodoDialog(todo)">
                 <mat-icon>edit</mat-icon>
             </button>            
         </td>
