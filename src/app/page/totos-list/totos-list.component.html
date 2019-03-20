@@ -6,41 +6,48 @@
   
   </button>
   
-
   <table>
     <thead>
-        <th>
-          Criado em:
-        </th>
-        <th>
-          Descroção
-        </th>
-        <th>
-          Feito
-        </th>
-        <th>
+      <th>
+        Criado em:
+      </th>
+      <th>
+        Descroção
+      </th>
+      <th>
+        Feito
+      </th>
+      <th>
             Ações
-        </th>
-    </thead>
-    <tbody *ngFor="let todo of todosList">
-      <tr>
-        <td>
-          {{ todo.createdAt }}
-        </td>
-        <td>
-          {{ todo.description }}
-        </td>
-        <td>
-          {{ todo.done }}
-        </td>
-        <td>
-            <button mat-stroked-button class="action-button" (click)="deleteTodoTask(todo._id)">
+          </th>
+        </thead>
+        <tbody *ngFor="let todo of todosList">
+          
+          <tr>
+            <td>
+              {{ todo.createdAt }}
+            </td>
+            <td>
+              {{ todo.description }}
+            </td>
+            <td>
+              <button mat-button class="btn-toggle" (click)="toggleDone(todo)">
+                <mat-icon *ngIf="todo.done">check_circle_outline</mat-icon>
+                <mat-icon *ngIf="!todo.done">close</mat-icon>
+              </button>  
+            </td>
+            <td>
+              <button mat-stroked-button class="action-button" (click)="deleteTodoTask(todo._id)">
                 <mat-icon>delete_outlined</mat-icon>
             </button> 
             <button mat-stroked-button class="action-button" (click)="openEditTodoDialog(todo)">
                 <mat-icon>edit</mat-icon>
             </button>            
         </td>
+      </tr>
+
+      <tr *ngIf="">
+          <mat-spinner></mat-spinner>
       </tr>
     </tbody>
 

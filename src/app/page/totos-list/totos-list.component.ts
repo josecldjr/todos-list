@@ -90,6 +90,16 @@ export class TotosListComponent implements OnInit {
   }
 
   /**
+   * Alterna o estado de feito pra true ou false
+   * @param todo tarefa
+   */
+  toggleDone(todo: Todo) {
+    todo.done = !todo.done
+
+    this.updateTodoTask(todo)
+  }
+
+  /**
    * Deleta uma tarefa pelo id
    * @param taskId id da tarefa
    */

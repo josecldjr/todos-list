@@ -8,8 +8,13 @@
     float: right;
 }
 
+.btn-toggle {
+    cursor: pointer;
+}
+
 table {
     width: 100%;
+    text-align: center;
 
     th {
         border-bottom: 1px solid #cecece;
