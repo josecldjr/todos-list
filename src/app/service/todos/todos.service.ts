@@ -41,14 +41,19 @@ export class TodosService {
 
   // WIP
   update(todo: Todo) {
-    const endpoint = endpoints.todos.get
+    // const endpoint = endpoints.todos.get
 
-    return this.http.get(endpoint) as Observable<Todo[]>
+    // return this.http.get(endpoint) as Observable<Todo[]>
   }
 
-  // WIP
-  delete() {
+  /**
+   * Deleta uma tarefa
+   * @param id id da tarefa
+   */
+  async delete(id: string): Promise<void> {    
+    const endpoint = endpoints.todos.get.replace(':id', id)
 
+    await this.http.delete(endpoint).toPromise()
   }
 
 

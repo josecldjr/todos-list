@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Todo } from 'src/app/common/models/Todo.model';
 import { MatDialog } from '@angular/material';
 import { TodoDialogComponent } from './todo-dialog/todo-dialog.component';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-totos-list',
@@ -34,7 +35,6 @@ export class TotosListComponent implements OnInit {
     this.todosService.getTodos().subscribe((todos) => {
       this.todosList = todos
 
-      console.log(this.todosList);
       
     })
   }
@@ -65,9 +65,34 @@ export class TotosListComponent implements OnInit {
     })
   }
 
-  deleteTodoTask(taskId) {
-    
+  /**
+   * Deleta uma tarefa pelo id
+   * @param taskId id da tarefa
+   */
+  deleteTodoTask(taskId: string) {
+    try {
+      // remove na api
+      this.todosService.delete(taskId)
+      // remove na view
+      this.removeTodoFromLocalList(taskId)
+    } catch (error) {
+      
+      // tratamento de erro
+
+    }
   }
+
+  /**
+   * Remove uma tafera da lista local buscando pelo id
+   * @param taskId id da teafa
+   */
+  removeTodoFromLocalList(taskId: string) {
+    _.remove(this.todosList, {
+        _id: taskId
+    });
+
+  }
+
   /**
    * Adiciona uma tarefa à lista local
    * @param todo tarefa

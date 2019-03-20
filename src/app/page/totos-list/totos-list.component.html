@@ -33,12 +33,12 @@
           {{ todo.done }}
         </td>
         <td>
-            <button mat-stroked-button class="action-button">
+            <button mat-stroked-button class="action-button" (click)="deleteTodoTask(todo._id)">
+                <mat-icon>delete_outlined</mat-icon>
+            </button> 
+            <button mat-stroked-button class="action-button" >
                 <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-stroked-button class="action-button">
-              <mat-icon>delete_outlined</mat-icon>
-            </button>
+            </button>            
         </td>
       </tr>
     </tbody>
