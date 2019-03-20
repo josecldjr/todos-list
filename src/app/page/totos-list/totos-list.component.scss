@@ -19,10 +19,15 @@ table {
     th {
         border-bottom: 1px solid #cecece;
         border-right: 1px solid #cecece;
+        padding: 12px;
     }
 
     td {
         align-content: center;
+    }
+
+    tr {
+        margin: 0px 10px;
     }
 }
 
