@@ -1,7 +1,9 @@
 
 <div class="todos-container">
   
-  <button mat-raised-button (click)="openCreateTodoDialog()">
+  <button 
+    [disabled]="isCreateLoading"
+    mat-raised-button (click)="openCreateTodoDialog()">
     Criar Nova Tarefa
   
   </button>
@@ -18,12 +20,16 @@
         Feito
       </th>
       <th>
-            Ações
-          </th>
-        </thead>
+        Ações
+        </th>
+      </thead>
+      <tr *ngIf="isLoading">
+          <mat-spinner [diameter]="100"></mat-spinner>
+      </tr>
         <tbody *ngFor="let todo of todosList">
           
-          <tr>
+          <tr *ngIf="!isLoading">
+            
             <td>
               {{ todo.createdAt }}
             </td>
@@ -46,9 +52,6 @@
         </td>
       </tr>
 
-      <tr *ngIf="">
-          <mat-spinner></mat-spinner>
-      </tr>
     </tbody>
 
   </table>

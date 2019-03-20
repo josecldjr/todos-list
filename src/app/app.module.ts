@@ -13,6 +13,7 @@ import {MatTableModule, MatRowDef, MatRow} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { TotosListComponent } from './page/totos-list/totos-list.component';
 import { TodosService } from './service/todos/todos.service';
@@ -46,7 +47,8 @@ import { TodoDialogEditComponent } from './page/totos-list/todo-dialog-edit/todo
     MatInputModule,
     FormsModule,
     MatCheckboxModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
   entryComponents: [
     TodoDialogComponent,

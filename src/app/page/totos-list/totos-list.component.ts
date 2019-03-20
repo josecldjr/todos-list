@@ -1,42 +1,53 @@
 import { TodosService } from './../../service/todos/todos.service';
 import { Component, OnInit } from '@angular/core';
 import { Todo } from 'src/app/common/models/Todo.model';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { TodoDialogComponent } from './todo-dialog/todo-dialog.component';
 import * as _ from 'lodash';
 import { TodoDialogEditComponent } from './todo-dialog-edit/todo-dialog-edit.component';
-
+import messages from './../../config/messages'
 @Component({
   selector: 'app-totos-list',
   templateUrl: './totos-list.component.html',
   styleUrls: ['./totos-list.component.scss']
 })
 export class TotosListComponent implements OnInit {
+  /** Colunas que serão mostradas */
   displayedColumns: string[] = [ 'createdAt','description', 'done', 'action' ];
   
+  /** lista de tarefas */
   todosList: Todo[]
+
+  /** Se a tabela está carregando */
+  isLoading: boolean = false
+
+  /** Se há alguma tarefa sendo criada */
+  isCreateLoading: boolean = false
 
   constructor(
     private todosService: TodosService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private messageService: MatSnackBar
   ) {
 
      
    }
 
   ngOnInit() {
-
-
     this.getList()
 
   }
 
-  // WIP =====
+  /**
+   * Retorna uma lista de tarefas
+   */
   getList() {
+    this.isLoading = true
+
     this.todosService.getTodos().subscribe((todos) => {
       this.todosList = todos
 
-      
+      this.isLoading = false
     })
   }
 
@@ -65,7 +76,9 @@ export class TotosListComponent implements OnInit {
       data: {selectedTask: todo},
       minWidth: '60%'
     }).afterClosed().subscribe((dialogData: Todo) => {
-        this.updateTodoTask(dialogData)
+        if (dialogData) {
+          this.updateTodoTask(dialogData)
+        }
     })
   }
 
@@ -74,8 +87,17 @@ export class TotosListComponent implements OnInit {
    * @param todo tarefa
    */
   createTodoTask(todo: Todo) {
+    this.isCreateLoading = true
+    
     this.todosService.create(todo).subscribe((todoResult: Todo) => {
         this.addTodoToLocalList(todoResult)
+
+        this.isCreateLoading = false
+
+        // mensagem ao usuário
+        this.messageService.open(messages.todos.created, 'Ok', {duration: 2000})
+    }, (err) => {
+      this.messageService.open(messages.todos.error, 'Ok', {duration: 2000})
     })
   }
 
@@ -86,6 +108,11 @@ export class TotosListComponent implements OnInit {
   updateTodoTask(todo: Todo) {
     this.todosService.update(todo).subscribe((todo: Todo) => {
       this.updateTodoFromList(todo)
+
+      // mensagem para o usuário
+      this.messageService.open(messages.todos.updated, 'Ok', {duration: 2000})
+    }, (err) => {
+      this.messageService.open(messages.todos.error, 'Ok', {duration: 2000})
     })
   }
 
@@ -109,10 +136,11 @@ export class TotosListComponent implements OnInit {
       this.todosService.delete(taskId)
       // remove na view
       this.removeTodoFromLocalList(taskId)
-    } catch (error) {
-      
-      // tratamento de erro
 
+      // mensagem ao usuário
+      this.messageService.open(messages.todos.deleted, 'Ok', {duration: 2000})
+    } catch (error) {
+      this.messageService.open(messages.todos.error, 'Ok', {duration: 2000})
     }
   }
 
